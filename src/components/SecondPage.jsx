@@ -124,7 +124,6 @@ const SecondPage = () => {
   return (
     <div className="form-container">
       <h2>POST YOUR AD</h2>
-
       {/* Category Section */}
       <div className="section">
         <div className="selected-category">
@@ -337,10 +336,10 @@ const SecondPage = () => {
               onBlur={() => handleBlur("adTitle")}
               required
             />
-            <span className="char-count">
-              {form.adTitle.length} / {ADTITLE_MAX}
-            </span>
           </div>
+          <span className="char-count">
+            {form.adTitle.length} / {ADTITLE_MAX}
+          </span>
           {((touched.adTitle || submitted) && errors.adTitle) && (
             <div className="error">{errors.adTitle}</div>
           )}
@@ -367,7 +366,8 @@ const SecondPage = () => {
           <h3>SET A PRICE</h3>
           <input
             type="text"
-            placeholder="Price *"
+            placeholder="₹ | *"
+          
             value={form.price}
             onChange={e => handleInput("price", e.target.value)}
             onBlur={() => handleBlur("price")}
@@ -382,25 +382,22 @@ const SecondPage = () => {
         <div className="section">
           <h3>UPLOAD UP TO 20 PHOTOS</h3>
           <div className="photo-grid">
-            {photos.map((photo, index) => (
+            {Array.from({ length: 20 }).map((_, index) => (
               <div
                 key={index}
-                className="photo-box"
+                className={`photo-box${index === 0 ? " first-photo-box" : ""}`}
                 onClick={handlePhotoBoxClick}
                 style={{ cursor: "pointer" }}
               >
-                {photo ? (
-                  <img src={photo} alt={`Photo ${index + 1}`} className="photo-preview" />
+                {photos[index] ? (
+                  <img src={photos[index]} alt={`Photo ${index + 1}`} className="photo-preview" />
                 ) : (
-                  <span>
+                  <>
                     <TbCameraPlus className="photo-icon" />
                     {index === 0 && (
-                      <>
-                        <br />
-                        Add Photo
-                      </>
+                    <div className="add-photo-text">Add Photo</div>
                     )}
-                  </span>
+                  </>
                 )}
               </div>
             ))}
@@ -466,7 +463,7 @@ const SecondPage = () => {
                   placeholder="Virat Gangwar"
                   required
                 />
-                <span className="char-count">
+                <span className="char-count1">
                   {form.name.length} / {NAME_MAX}
                 </span>
               </div>
