@@ -364,12 +364,18 @@ const SecondPage = () => {
         {/* Price Section */}
         <div className="section">
           <h3>SET A PRICE</h3>
-          <input
+           <input
             type="text"
-            placeholder="₹ | *"
-          
+            placeholder="Price *"
             value={form.price}
-            onChange={e => handleInput("price", e.target.value)}
+           onChange={e => {
+                  const value=e.target.value
+                   if (/^\d*$/.test(value)) { 
+                    handleInput("price",value)
+                   }
+                }
+                  
+                }
             onBlur={() => handleBlur("price")}
             required
           />
